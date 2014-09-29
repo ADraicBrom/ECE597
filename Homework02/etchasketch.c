@@ -33,19 +33,19 @@ void signal_handler(int sig)
 }
 
 
-void printGrid(char (*pGrid)[gridSize])
+void printGrid(char pGrid[gridSize][gridSize])
 {
 	int i, k;
 	for(i=0; i<gridSize; i++){
 		for(k=0; k<gridSize; k++){
 			printf("%c", pGrid[i][k]);
 		}
-		printf('\n');
+		printf("\n");
 	}
-	printf('\n');
+	printf("\n");
 }
 
-void clear(char (*pGrid)[gridSize])
+void clear(char pGrid[gridSize][gridSize])
 {
 	int i;
 	int k;
@@ -128,12 +128,10 @@ int main()
 	char string[8];
 	printf("Input grid size\n");
 	scanf("%i", &gridSize);
-	printf("size input\n");
 	printf("%i",gridSize);
 	char grid[gridSize][gridSize];
 	//char *pGrid=grid;
-	printf("grid created");
-	for(i=0; i<gridS; i++){
+	for(i=0; i<gridSize; i++){
 		for(k=0; k<gridSize; k++){
 			grid[i][k]=' ';
 		}
@@ -172,33 +170,47 @@ int main()
 			return -1;
 		}
       
-		if (rc == 0) {
-			printf(".");
-		}
+		
 
 		if (rc == 1) {
 			printf("polled\n");
 		}
             
 		if (fdset[1].revents & POLLPRI) {
+			lseek(fdset[1].fd, 0, SEEK_SET);  // Read from the start of the file
+			len = read(fdset[1].fd, buf, MAX_BUF);
+			printf("\npoll() GPIO %d interrupt occurred, value=%c, len=%d\n",
+				 button0, buf[0], len);
 			toggle0 = !toggle0;
 			gpio_set_value(led0, toggle0);
 			moveX = -1;
 		}
 
 		if (fdset[2].revents & POLLPRI) {
+			lseek(fdset[2].fd, 0, SEEK_SET);  // Read from the start of the file
+			len = read(fdset[2].fd, buf, MAX_BUF);
+			printf("\npoll() GPIO %d interrupt occurred, value=%c, len=%d\n",
+				 button1, buf[0], len);
 			toggle1 = !toggle1;
 			gpio_set_value(led1, toggle1);
-			moveY = 1;
-		}
-
-		if (fdset[3].revents & POLLPRI) {
-			toggle2 = !toggle2;
-			gpio_set_value(led2, toggle2);
 			moveY = -1;
 		}
 
+		if (fdset[3].revents & POLLPRI) {
+			lseek(fdset[3].fd, 0, SEEK_SET);  // Read from the start of the file
+			len = read(fdset[3].fd, buf, MAX_BUF);
+			printf("\npoll() GPIO %d interrupt occurred, value=%c, len=%d\n",
+				 button2, buf[0], len);
+			toggle2 = !toggle2;
+			gpio_set_value(led2, toggle2);
+			moveY = 1;
+		}
+
 		if (fdset[4].revents & POLLPRI) {
+			lseek(fdset[4].fd, 0, SEEK_SET);  // Read from the start of the file
+			len = read(fdset[4].fd, buf, MAX_BUF);
+			printf("\npoll() GPIO %d interrupt occurred, value=%c, len=%d\n",
+				 button3, buf[0], len);
 			toggle3 = !toggle3;
 			gpio_set_value(led3, toggle3);
 			moveX = 1;
@@ -209,7 +221,7 @@ int main()
 			printf("\npoll() stdin read 0x%2.2X\n", (unsigned int) buf[0]);
 		}
 		
-		if(x+moveX > gridSize || x+moveX < 0 || y+moveY > gridSize || y+moveY < 0){printf("OUT OF BOUNDS\n");}
+		if(x+moveX > gridSize || x+moveX < 0 || y+moveY > gridSize || y+moveY < 0){printf("OUT OF BOUNDS\n");printf("%d",moveX);}
 		else{
 			x += moveX;
 			y += moveY;
@@ -219,6 +231,15 @@ int main()
 
 		fflush(stdout);
 	}
+	gpio_fd_close(button0_fd);
+	gpio_fd_close(button1_fd);
+	gpio_fd_close(button2_fd);
+	gpio_fd_close(button3_fd);
+	gpio_fd_close(led0_fd);
+	gpio_fd_close(led1_fd);
+	gpio_fd_close(led2_fd);
+	gpio_fd_close(led3_fd);
+	return 0;
 }
 
 

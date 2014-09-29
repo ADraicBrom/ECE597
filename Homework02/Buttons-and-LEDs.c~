@@ -176,7 +176,6 @@ int main(int argc, char **argv, char **envp)
 				 button0, buf[0], len);
 			toggle0 = !toggle0;
 			gpio_set_value(led0, toggle0);
-			gpio_set_value(led3, toggle0);
 		}
 
 		if (fdset[2].revents & POLLPRI) {
