@@ -1,0 +1,8 @@
+#!/bin/bash
+# I2C TMP101 Reader Program
+
+temp=`i2cget -y 1 0x48`
+
+temp2=$(($temp *9/5 +32))
+
+echo $temp2
