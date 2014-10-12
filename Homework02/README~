@@ -1,1 +1,22 @@
 This directory includes all files pertaining to Homework 02 for the ECE597 Embedded Linux class for Asa Bromenschenkel.
+
+There are two major files for the assignment:
+
+Buttons-and-LEDs:
+	This program takes inputs from four buttons and lights up a corresponding
+	LED when the button is pressed.
+
+	Button GPIOs:
+		30, 31, 48, 3
+	LED GPIOs:
+	 	60, 50, 51, 49
+
+etchasketch:
+	This program takes inputs from four buttons and lights up
+	a corresponding LED when the button is pressed. It also
+	modifies an Etch-a-sketch in the command line.
+
+	Button GPIOs:
+		30, 31, 48, 3
+	LED GPIOs:
+	 	60, 50, 51, 49

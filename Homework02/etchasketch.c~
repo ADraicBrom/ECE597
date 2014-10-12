@@ -1,3 +1,23 @@
+/* etchasketch.c
+ * Written by Asa Bromenschenkel
+ *
+ * This program takes inputs from four buttons and lights up
+ * a corresponding LED when the button is pressed. It also
+ * modifies an Etch-a-sketch in the command line.
+ *
+ * Button GPIOs:
+ * 	button0 30
+ * 	button1 31
+ *	button2 48
+ * 	button3 3
+ *
+ * LED GPIOs:
+ * 	led0 60
+ * 	led1 50
+ *	led2 51
+ * 	led3 49
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -170,9 +190,7 @@ int main()
 			return -1;
 		}
       
-		if (rc == 0) {
-			printf(".");
-		}
+		
 
 		if (rc == 1) {
 			printf("polled\n");

@@ -2,7 +2,7 @@
 # I2C TMP101 Reader Program
 
 temp=`i2cget -y 1 0x48`
-
 temp2=$(($temp *9/5 +32))
+`i2cset 0x48 0x03 0x19`
 
 echo $temp2
