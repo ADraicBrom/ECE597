@@ -49,5 +49,5 @@ class Text2LED():
 			if i == 0:
 				pixels.append((0,0,0))
 			else:
-				pixels.append((128,0,64))
+				pixels.append((128,128,128))
 		return pixels

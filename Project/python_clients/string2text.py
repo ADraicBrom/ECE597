@@ -40,6 +40,7 @@ class Text2LED():
 		matrixOfText = []
 		for letter in string:
 			matrixOfText.append(myalphabet[letter])
+		matrixOfText.append(myalphabet['_'])
 		#print matrixOfText
 		return matrixOfText
 
