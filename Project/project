@@ -1,0 +1,8 @@
+#Script to run the LEDscape server
+cd ~/LEDscape
+echo BB-BONE-PRU-01 >/sys/devices/bone_capemgr.9/slots
+make
+sudo systemctl enable ~/LEDscape/ledscape.service
+sudo ./run-ledscape
+^Z
+cd openpixelcontrol
